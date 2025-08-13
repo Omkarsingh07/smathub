@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Facebook.css';
+import './facebook.css';
 
 const Facebook = () => {
   const [activeTab, setActiveTab] = useState('overview');
