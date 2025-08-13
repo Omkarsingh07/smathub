@@ -1,0 +1,811 @@
+/* Instagram Analytics Dashboard CSS */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fafafa;
+  color: #262626;
+  line-height: 1.6;
+}
+
+/* Dashboard Container */
+.ig-dashboard-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Styles */
+.ig-dashboard-header {
+  background: white;
+  color: rgb(0, 0, 0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.ig-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.ig-branding {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ig-branding .logo-icon {
+  font-size: 2rem;
+  color: rgb(255, 255, 255);
+}
+
+.ig-dashboard-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.ig-home-button {
+  background: rgba(254, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgb(255, 2, 2);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.ig-home-button:hover {
+  background: rgba(255, 37, 37, 0.3);
+  transform: translateY(-1px);
+}
+
+.ig-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ig-date-range-picker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(146, 146, 146, 0.1);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(138, 132, 132, 0.2);
+}
+
+.date-input-group {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ig-date-input {
+  background: rgba(255, 252, 252, 0.9);
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.ig-date-separator {
+  color: rgb(0, 0, 0);
+  font-size: 0.85rem;
+  margin: 0 0.3rem;
+}
+
+.ig-apply-btn, .ig-export-btn {
+  background: red;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ig-apply-btn:hover, .ig-export-btn:hover {
+  background: red;
+  transform: translateY(-1px);
+}
+
+/* Navigation Tabs */
+.ig-dashboard-tabs {
+  background: rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ig-dashboard-tabs ul {
+  display: flex;
+  list-style: none;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.ig-dashboard-tabs li {
+  margin-right: 0.5rem;
+}
+
+.ig-dashboard-tabs li a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+  border-radius: 6px 6px 0 0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.ig-dashboard-tabs li.active a {
+  background: white;
+  color: #000000;
+  font-weight: 600;
+}
+
+.ig-dashboard-tabs li:not(.active) a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgb(0, 0, 0);
+}
+
+/* Main Content */
+.ig-dashboard-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Metrics Summary */
+.ig-metrics-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.ig-metric-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e1e8ed;
+  transition: all 0.3s ease;
+}
+
+.ig-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ig-metric-card.followers {
+  border-left: 4px solid #1da1f2;
+}
+
+.ig-metric-card.following {
+  border-left: 4px solid #17bf63;
+}
+
+.ig-metric-card.posts {
+  border-left: 4px solid #fd1d1d;
+}
+
+.ig-metric-card.engagement {
+  border-left: 4px solid #fcb045;
+}
+
+.ig-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.ig-metric-header h3 {
+  font-size: 0.9rem;
+  color: #657786;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ig-metric-header i {
+  font-size: 1.2rem;
+  color: #aab8c2;
+}
+
+.ig-metric-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #14171a;
+  margin-bottom: 0.5rem;
+}
+
+.ig-metric-change {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.ig-metric-change.positive {
+  color: #17bf63;
+}
+
+.ig-metric-change.negative {
+  color: #e0245e;
+}
+
+.ig-metric-change.neutral {
+  color: #657786;
+}
+
+/* Analytics Sections */
+.ig-analytics-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e1e8ed;
+}
+
+.ig-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f7f9fa;
+}
+
+.ig-section-header h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  color: #14171a;
+  font-weight: 600;
+}
+
+.ig-section-header i {
+  color: #833ab4;
+}
+
+.ig-timeframe-selector select,
+.ig-segment-selector select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #e1e8ed;
+  border-radius: 6px;
+  background: white;
+  color: #14171a;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.ig-view-all-btn {
+  background: #833ab4;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.ig-view-all-btn:hover {
+  background: #6a2c91;
+  transform: translateY(-1px);
+}
+
+/* Engagement Grid */
+.ig-engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.ig-engagement-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ig-engagement-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-color: #833ab4;
+}
+
+.ig-engagement-card.highlight {
+  background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 100%);
+  color: white;
+  border: none;
+}
+
+.ig-engagement-card.highlight .ig-metric-info h4,
+.ig-engagement-card.highlight .ig-metric-value,
+.ig-engagement-card.highlight .ig-metric-change {
+  color: white;
+}
+
+.ig-engagement-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ig-metric-info h4 {
+  font-size: 0.9rem;
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.ig-metric-info .ig-metric-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 0.3rem;
+}
+
+.ig-metric-chart {
+  width: 60px;
+  height: 40px;
+  position: relative;
+}
+
+.ig-chart-placeholder {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d);
+  border-radius: 3px;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.ig-benchmark-indicator {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.tooltip {
+  cursor: help;
+  opacity: 0.7;
+}
+
+.tooltip:hover {
+  opacity: 1;
+}
+
+/* Content Grid */
+.ig-content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ig-content-card {
+  background: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.ig-content-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ig-content-preview {
+  height: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #aab8c2;
+}
+
+.ig-content-stats {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ig-content-stats span {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.3rem 0.6rem;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.ig-content-info {
+  padding: 1rem;
+}
+
+.ig-content-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #14171a;
+  margin-bottom: 0.3rem;
+}
+
+.ig-content-info p {
+  color: #657786;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+}
+
+.ig-engagement-rate {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ig-rate-bar {
+  height: 4px;
+  background: linear-gradient(90deg, #833ab4, #fd1d1d);
+  border-radius: 2px;
+  flex: 1;
+}
+
+.ig-engagement-rate span {
+  font-size: 0.8rem;
+  color: #657786;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Audience Grid */
+.ig-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.ig-audience-card {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.ig-audience-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ig-audience-card h4 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #495057;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Gender Chart */
+.ig-gender-chart {
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 40px;
+}
+
+.ig-male-segment, .ig-female-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.ig-male-segment {
+  background: #1da1f2;
+  color: white;
+}
+
+.ig-female-segment {
+  background: #fd1d1d;
+  color: white;
+}
+
+/* Location List */
+.ig-location-list {
+  list-style: none;
+}
+
+.ig-location-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+.ig-country-flag {
+  font-size: 1.2rem;
+}
+
+.ig-country-name {
+  flex: 1;
+  font-weight: 500;
+  color: #495057;
+}
+
+.ig-country-percent {
+  font-weight: 600;
+  color: #212529;
+  font-size: 0.9rem;
+}
+
+.ig-location-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #833ab4, #fd1d1d);
+  border-radius: 1px;
+}
+
+/* Time Distribution */
+.ig-time-distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.ig-time-block {
+  padding: 0.8rem;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.ig-time-block.peak {
+  background: #17bf63;
+  color: white;
+}
+
+.ig-time-block.moderate {
+  background: #fcb045;
+  color: white;
+}
+
+.ig-time-block.low {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.ig-time-block span:first-child {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.ig-time-block span:last-child {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+/* Footer */
+.ig-dashboard-footer {
+  background: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  padding: 1.5rem 2rem;
+  margin-top: auto;
+}
+
+.ig-footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.ig-footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.ig-footer-links a {
+  color: #657786;
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s ease;
+}
+
+.ig-footer-links a:hover {
+  color: #833ab4;
+}
+
+.ig-footer-copyright {
+  color: #657786;
+  font-size: 0.85rem;
+}
+
+.ig-footer-version {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #657786;
+  font-size: 0.8rem;
+}
+
+.ig-footer-version .ig-fas.fa-circle {
+  color: #17bf63;
+  font-size: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .ig-dashboard-content {
+    padding: 1.5rem;
+  }
+  
+  .ig-metrics-summary {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  .ig-engagement-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .ig-header-content {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .ig-branding {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .ig-header-actions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .ig-date-range-picker {
+    flex-wrap: wrap;
+  }
+  
+  .ig-dashboard-tabs ul {
+    padding: 0 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .ig-dashboard-content {
+    padding: 1rem;
+  }
+  
+  .ig-analytics-section {
+    padding: 1.5rem;
+  }
+  
+  .ig-section-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .ig-metrics-summary {
+    grid-template-columns: 1fr;
+  }
+  
+  .ig-engagement-grid,
+  .ig-content-grid,
+  .ig-audience-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ig-dashboard-title {
+    font-size: 1.4rem;
+  }
+  
+  .ig-metric-value {
+    font-size: 1.8rem;
+  }
+  
+  .ig-engagement-metric {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .ig-metric-chart {
+    width: 100%;
+    height: 30px;
+  }
+}
+
+/* Animation Classes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ig-metric-card,
+.ig-engagement-card,
+.ig-content-card,
+.ig-audience-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Utility Classes */
+.ig-fas, .ig-fab, .far {
+  font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+  font-weight: 900;
+}
+
+.ig-fab {
+  font-weight: 400;
+}
+
+.far {
+  font-weight: 400;
+}

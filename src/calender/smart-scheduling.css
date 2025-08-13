@@ -1,0 +1,893 @@
+/* Smart Scheduling CSS - Light Mode Design */
+
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  color: #2d3748;
+  background-color: #f7fafc;
+}
+
+/* App Container */
+.ss-app-container {
+  min-height: 100vh;
+  background: white;
+  padding: 0;
+}
+
+/* Header Styles */
+.ss-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ss-header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ss-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ss-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+}
+
+.ss-logo-icon {
+  color: white;
+  width: 28px;
+  height: 28px;
+}
+
+.ss-brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ss-brand-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+.ss-brand-subtitle {
+  font-size: 0.875rem;
+  color: #718096;
+  margin: 0;
+}
+
+.ss-home-button {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 8px 8px 8px 8px;
+  width: 90px;
+  height: 30px;
+  background: #4f46e5;
+  border: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.ss-home-button:hover {
+  background: #4f46e5;
+  color: #ffffff;
+}
+
+.ss-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ss-notification-bell {
+  position: relative;
+  padding: 0.75rem;
+  background: #fef5e7;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ss-notification-bell:hover {
+  background: #fbd38d;
+  transform: scale(1.05);
+}
+
+.ss-bell-icon {
+  color: #ed8936;
+  width: 20px;
+  height: 20px;
+}
+
+.ss-notification-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e53e3e;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ss-export-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 8px;
+  width: 100px;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+.ss-export-btn:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+
+.ss-btn-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Reminder Notification */
+.ss-reminder-notification {
+  background: linear-gradient(135deg, #fed7d7, #feb2b2);
+  border: 1px solid #fc8181;
+  border-radius: 12px;
+  margin: 2rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(245, 101, 101, 0.2);
+  animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ss-reminder-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.ss-reminder-icon {
+  color: #e53e3e;
+  width: 24px;
+  height: 24px;
+  margin-top: 0.25rem;
+}
+
+.ss-reminder-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #742a2a;
+  margin-bottom: 0.5rem;
+}
+
+.ss-reminder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ss-reminder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.ss-reminder-text {
+  flex: 1;
+  font-size: 0.875rem;
+  color: #742a2a;
+}
+
+.ss-reminder-date {
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.ss-send-reminder-btn {
+  padding: 0.5rem 1rem;
+  background: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ss-send-reminder-btn:hover {
+  background: #c53030;
+  transform: scale(1.05);
+}
+
+/* Main Content */
+.ss-main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Filters Section */
+.ss-filters-section {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.ss-filters-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.ss-filter-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-right: 1rem;
+}
+
+.ss-filter-icon {
+  width: 20px;
+  height: 20px;
+  color: #667eea;
+}
+
+.ss-filter-input, .ss-search-input {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.ss-filter-input:focus, .ss-search-input:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.ss-search-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.ss-search-icon {
+  position: absolute;
+  left: 0.75rem;
+  width: 16px;
+  height: 16px;
+  color: #a0aec0;
+}
+
+.ss-search-input {
+  padding-left: 2.5rem;
+  width: 200px;
+}
+
+.ss-clear-filters-btn {
+  padding: 0.75rem 1rem;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #4a5568;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ss-clear-filters-btn:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+/* Add Todo Section */
+.ss-add-todo-section {
+  margin-bottom: 2rem;
+}
+
+.ss-add-todo-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+.ss-add-todo-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+  background: linear-gradient(135deg, #38a169, #2f855a);
+}
+
+/* Form Styles */
+.ss-add-form {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+}
+
+.ss-form-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #667eea;
+}
+
+.ss-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ss-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.ss-form-label {
+  display: block;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.ss-form-input, .ss-form-textarea {
+  width: 100%;
+  padding: 0.875rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.ss-form-input:focus, .ss-form-textarea:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.ss-form-textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.ss-form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ss-submit-btn {
+  padding: 0.875rem 2rem;
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(79, 70, 229, 0.3);
+}
+
+.ss-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 16px rgba(79, 70, 229, 0.4);
+}
+
+.ss-cancel-btn {
+  padding: 0.875rem 2rem;
+  background: #f7fafc;
+  color: #4a5568;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ss-cancel-btn:hover {
+  background: #edf2f7;
+  border-color: #cbd5e0;
+}
+
+/* Stats Container */
+.ss-stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.ss-stat-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.ss-stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.ss-stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pending-icon {
+  background: linear-gradient(135deg, #fbd38d, #ed8936);
+}
+
+.completed-icon {
+  background: linear-gradient(135deg, #9ae6b4, #48bb78);
+}
+
+.total-icon {
+  background: linear-gradient(135deg, #90cdf4, #4299e1);
+}
+
+.ss-stat-icon .ss-icon {
+  width: 28px;
+  height: 28px;
+  color: white;
+}
+
+.ss-stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin: 0;
+}
+
+.ss-stat-label {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* Todos Section */
+.ss-todos-section {
+  margin-bottom: 3rem;
+}
+
+.ss-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #2d3748;
+}
+
+.pending-title {
+  color: #ed8936;
+}
+
+.completed-title {
+  color: #48bb78;
+}
+
+.ss-section-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.ss-todos-list {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Todo Card */
+.todo-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid #e2e8f0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.todo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.todo-card.completed::before {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+}
+
+.todo-card.overdue::before {
+  background: linear-gradient(135deg, #f56565, #e53e3e);
+}
+
+.todo-card.due-soon::before {
+  background: linear-gradient(135deg, #ed8936, #dd6b20);
+}
+
+.todo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  border-color: #cbd5e0;
+}
+
+.todo-card.completed {
+  opacity: 0.8;
+}
+
+.ss-todo-content {
+  display: flex;
+  gap: 1rem;
+}
+
+.ss-todo-main {
+  flex: 1;
+}
+
+.ss-todo-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ss-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.ss-checkbox.checked {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  border-color: #48bb78;
+}
+
+.ss-check-icon {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
+.ss-todo-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.ss-platform-name {
+  font-weight: 700;
+  font-size: 1rem;
+  color: #2d3748;
+}
+
+.ss-content-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border-radius: 8px;
+}
+
+.ss-content-icon {
+  width: 16px;
+  height: 16px;
+  color: white;
+}
+
+.ss-content-type-text {
+  font-size: 0.875rem;
+  color: #718096;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.ss-status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.overdue-badge {
+  background: #fed7d7;
+  color: #c53030;
+  border: 1px solid #fc8181;
+}
+
+.due-soon-badge {
+  background: #feebc8;
+  color: #c05621;
+  border: 1px solid #f6ad55;
+}
+
+.ss-todo-caption {
+  font-size: 1rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.completed-text {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+.ss-todo-details {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.ss-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.ss-detail-icon {
+  width: 16px;
+  height: 16px;
+  color: #a0aec0;
+}
+
+.ss-todo-keywords {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f7fafc;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.ss-hash-icon {
+  width: 16px;
+  height: 16px;
+  color: #667eea;
+}
+
+.ss-keywords-text {
+  font-size: 0.875rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.ss-delete-btn {
+  background: #fed7d7;
+  border: 1px solid #feb2b2;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ss-delete-btn:hover {
+  background: #feb2b2;
+  border-color: #fc8181;
+  transform: scale(1.1);
+}
+
+.ss-delete-icon {
+  width: 18px;
+  height: 18px;
+  color: #e53e3e;
+}
+
+/* Empty State */
+.ss-empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #a0aec0;
+}
+
+.ss-empty-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 1rem;
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ss-header-content {
+    padding: 0 1rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ss-main-content {
+    padding: 1rem;
+  }
+
+  .ss-filters-content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ss-filter-input, .ss-search-input {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .ss-search-input {
+    width: 100%;
+  }
+
+  .ss-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-stats-container {
+    grid-template-columns: 1fr;
+  }
+
+  .ss-form-actions {
+    flex-direction: column;
+  }
+
+  .ss-todo-header {
+    flex-wrap: wrap;
+  }
+
+  .ss-todo-details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ss-reminder-item {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .ss-brand-title {
+    font-size: 1.25rem;
+  }
+
+  .ss-section-title {
+    font-size: 1.25rem;
+  }
+
+  .todo-card {
+    padding: 1rem;
+  }
+
+  .ss-todo-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .ss-delete-btn {
+    align-self: flex-end;
+  }
+}
