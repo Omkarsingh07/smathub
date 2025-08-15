@@ -91,7 +91,7 @@ const LandingPage = () => {
         <div className="lp-container">
           <nav className="lp-navbar">
             <div className="lp-logo">
-              <img src="/assets/brandlogos.png" alt="Smathub Logo" />
+              <img src="/assets/brandsmat.png" alt="Smathub Logo" />
             </div>
             <div className="lp-nav-links">
               <a href="#features">Features</a>

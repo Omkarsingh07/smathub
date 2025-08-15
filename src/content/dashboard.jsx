@@ -112,7 +112,7 @@ const Dashboard = () => {
           <div className="homePage-header-title">
             {/* Replace text logo with image logo */}
             <img
-              src="/assets/brandlogos.png"
+              src="/assets/brandsmat.png"
               alt="SMATHUB Logo"
               className="brand-logo"
               style={{ height: '40px', marginRight: '1rem' }}
