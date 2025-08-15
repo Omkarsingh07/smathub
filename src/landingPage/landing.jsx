@@ -70,7 +70,7 @@ const LandingPage = () => {
   ];
 
   const socialLinks = [
-    { icon: <FaTwitter />, name: 'Twitter', url: '#' },
+    { icon: <FaTwitter />, name: 'Twitter', url: 'https://x.com/smathub_ai' },
     { icon: <FaLinkedin />, name: 'LinkedIn', url: '#' },
     { icon: <FaFacebook />, name: 'Facebook', url: '#' },
     { icon: <FaInstagram />, name: 'Instagram', url: 'https://www.instagram.com/smathub.ai/' }
