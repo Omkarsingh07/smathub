@@ -85,7 +85,7 @@ a {
 
 /* Header Styles */
 .lp-scrolled {
-  background-color: rgba(255, 255, 255, 0.98);
+  background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
