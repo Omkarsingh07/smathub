@@ -70,10 +70,10 @@ const LandingPage = () => {
   ];
 
   const socialLinks = [
-    { icon: <FaTwitter />, name: 'Twitter', url: 'https://x.com/smathub_ai' },
-    { icon: <FaLinkedin />, name: 'LinkedIn', url: '#' },
+    { icon: <FaTwitter />, name: 'Twitter', url: 'https://x.com/wrsmat' },
+    { icon: <FaLinkedin />, name: 'LinkedIn', url: 'https://www.linkedin.com/in/smat-ai/' },
     { icon: <FaFacebook />, name: 'Facebook', url: '#' },
-    { icon: <FaInstagram />, name: 'Instagram', url: 'https://www.instagram.com/smathub.ai/' }
+    { icon: <FaInstagram />, name: 'Instagram', url: 'https://www.instagram.com/wr.smat/' }
   ];
 
   const toggleModal = (type) => {
