@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram, FaRobot, FaDollarSign } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram, FaRobot, FaDollarSign, FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
 
 import './landing.css';
 
@@ -13,8 +13,8 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSignUpClick = () => navigate('/auth');
-  const handleLoginClick = () => navigate('/auth');
+  const handleSignUpClick = () => navigate('/auth?mode=signup');
+  const handleLoginClick = () => navigate('/auth?mode=signin');
 
   // Smooth scrolling for anchor links
   useEffect(() => {
@@ -49,41 +49,46 @@ const LandingPage = () => {
 
   const features = [
     {
-      icon: '📅',
+      icon: <FaPlay />,
       title: 'Smart Scheduling',
-      description: 'Schedule posts across multiple platforms with AI-powered optimal timing recommendations to maximize engagement and reach.'
+      description: 'Schedule posts across multiple platforms with AI-powered optimal timing recommendations to maximize engagement and reach.',
+      color: '#4F46E5'
     },
     {
-      icon: '📊',
+      icon: <FaCheckCircle />,
       title: 'Advanced Analytics',
-      description: 'Get detailed insights into your social media performance with comprehensive reports and actionable recommendations.'
+      description: 'Get detailed insights into your social media performance with comprehensive reports and actionable recommendations.',
+      color: '#059669'
     },
     {
-      icon: '👥',
+      icon: <FaInstagram />,
       title: 'Brand Collaboration',
-      description: 'Work with your team or clients in one space. Share drafts, get approvals, assign roles, and leave feedback—all inside the tool.'
+      description: 'Work with your team or clients in one space. Share drafts, get approvals, assign roles, and leave feedback—all inside the tool.',
+      color: '#DC2626'
     },
     {
-      icon: '📈',
+      icon: <FaLinkedin />,
       title: 'Trend Discovery',
-      description: "Identify what's trending across platforms. Leverage AI to suggest viral hashtags, content formats, and top-performing topics in your niche."
+      description: "Identify what's trending across platforms. Leverage AI to suggest viral hashtags, content formats, and top-performing topics in your niche.",
+      color: '#7C3AED'
     },
     {
-      icon: '🤖',
+      icon: <FaRobot />,
       title: 'AI Chatbot Assistant',
       description: 'Get instant help with content creation, strategy suggestions, and platform-specific advice from our intelligent AI assistant available 24/7.',
+      color: '#EA580C',
       action: {
         text: 'Try AI Assistant',
         onClick: () => {
-          // You can add navigation to chatbot or open a chat widget
           alert('AI Chatbot feature coming soon!');
         }
       }
     },
     {
-      icon: '💰',
+      icon: <FaDollarSign />,
       title: 'Flexible Pricing',
       description: 'Choose from our affordable plans designed for individuals, small businesses, and enterprises. Start free and scale as you grow.',
+      color: '#0891B2',
       action: {
         text: 'View Pricing',
         onClick: () => setShowPricingModal(true)
@@ -99,7 +104,7 @@ const LandingPage = () => {
       description: 'Perfect for getting started',
       features: [
         'Up to 3 social accounts',
-        '10 scheduled posts per month',
+        '5 scheduled posts per month',
         'Basic analytics',
         'Email support',
         'AI assistant (limited)'
@@ -113,12 +118,14 @@ const LandingPage = () => {
       period: '/month',
       description: 'For growing businesses',
       features: [
-        'Up to 10 social accounts',
+        'Unlimited social accounts',
         'Unlimited scheduled posts',
         'Advanced analytics',
         'Priority support',
         'Full AI assistant access',
         'Team collaboration',
+        'Content calendar',
+        'Brand collaboration',
         'Custom branding'
       ],
       buttonText: 'Start Pro Trial',
@@ -128,9 +135,9 @@ const LandingPage = () => {
 
   const socialLinks = [
     { icon: <FaTwitter />, name: 'Twitter', url: 'https://x.com/wrsmat' },
-    { icon: <FaLinkedin />, name: 'LinkedIn', url: 'https://www.linkedin.com/in/smat-ai/' },
+    { icon: <FaLinkedin />, name: 'LinkedIn', url: '#' },
     { icon: <FaFacebook />, name: 'Facebook', url: '#' },
-    { icon: <FaInstagram />, name: 'Instagram', url: 'https://www.instagram.com/wr.smat/' }
+    { icon: <FaInstagram />, name: 'Instagram', url: '#' }
   ];
 
   const toggleModal = (type) => {
@@ -146,20 +153,21 @@ const LandingPage = () => {
   return (
     <div className="lp-landing-page">
       {/* Header */}
-      <header className={isScrolled ? 'lp-scrolled' : ''}>
+      <header className={`lp-header ${isScrolled ? 'lp-scrolled' : ''}`}>
         <div className="lp-container">
           <nav className="lp-navbar">
             <div className="lp-logo">
-              <img src="/assets/brandlogo.svg" alt="Smathub Logo" />
+              <img src="/assets/brandlogo.svg" alt="Logo" />
             </div>
             <div className="lp-nav-links">
-              <a href="#features">Features</a>
-              <a href="#about">About</a>
-              <a href="#" onClick={() => setShowPricingModal(true)}>Pricing</a>
-              <a href="#contact">Contact</a>
+              <a href="#features" className="lp-nav-link">Features</a>
+              <a href="#about" className="lp-nav-link">About</a>
+              <a href="#" onClick={() => setShowPricingModal(true)} className="lp-nav-link">Pricing</a>
+              <a href="#contact" className="lp-nav-link">Contact</a>
             </div>
             <div className="lp-auth-buttons">
               <button className="lp-btn lp-btn-outline" onClick={handleLoginClick}>Sign In</button>
+              <button className="lp-btn lp-btn-primary" onClick={handleSignUpClick}>Get Started</button>
             </div>
           </nav>
         </div>
@@ -167,24 +175,54 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <section className="lp-hero">
+        <div className="lp-hero-background">
+          <div className="lp-hero-gradient"></div>
+          <div className="lp-floating-elements">
+            <div className="lp-floating-icon lp-float-1"><FaPlay /></div>
+            <div className="lp-floating-icon lp-float-2"><FaCheckCircle /></div>
+            <div className="lp-floating-icon lp-float-3"><FaRobot /></div>
+            <div className="lp-floating-icon lp-float-4"><FaInstagram /></div>
+          </div>
+        </div>
         <div className="lp-container">
           <div className="lp-hero-content">
-            <h1>Automate Your Social Media Success</h1>
-            <p className="lp-subtitle">
-              Powerful tools to grow your audience while saving you hours every week
+            <div className="lp-hero-badge">
+              <span>New: AI-Powered Content Generation</span>
+            </div>
+            <h1 className="lp-hero-title">
+              Automate Your 
+              <span className="lp-gradient-text"> Social Media Success</span>
+            </h1>
+            <p className="lp-hero-subtitle">
+              Powerful AI-driven tools to grow your audience, increase engagement, 
+              and save hours every week. Join 50,000+ creators and businesses already winning with wrsmat.
             </p>
+            
             <div className="lp-cta-buttons">
-              <button className="lp-btn lp-btn-primary" onClick={handleSignUpClick}>
-                Get Started Free
+              <button className="lp-btn lp-btn-primary lp-btn-large" onClick={handleSignUpClick}>
+                <span>Start Free Trial</span>
+                <FaPlay className="lp-btn-icon" />
               </button>
-              <button className="lp-btn lp-btn-outline" onClick={() => setShowDemoModal(true)}>
-                Watch Demo
+              <button className="lp-btn lp-btn-outline lp-btn-large" onClick={() => setShowDemoModal(true)}>
+                <FaPlay className="lp-btn-icon" />
+                <span>Watch Demo</span>
               </button>
             </div>
 
-            <p className="lp-trust-note">
-              
-            </p>
+            <div className="lp-trust-indicators">
+              <div className="lp-trust-item">
+                <FaCheckCircle className="lp-trust-icon" />
+                <span>No Credit Card Required</span>
+              </div>
+              <div className="lp-trust-item">
+                <FaCheckCircle className="lp-trust-icon" />
+                <span>14-Day Free Trial</span>
+              </div>
+              <div className="lp-trust-item">
+                <FaCheckCircle className="lp-trust-icon" />
+                <span>Cancel Anytime</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -192,24 +230,26 @@ const LandingPage = () => {
       {/* Features Section */}
       <section id="features" className="lp-features-section">
         <div className="lp-container">
-          <h2>Why Choose Smathub?</h2>
-          <p className="lp-section-description">
-            Smathub is the ultimate social media automation platform designed to streamline your digital marketing efforts.
-          </p>
+          <div className="lp-section-header">
+            <h2 className="lp-section-title">Why Choose WRSMAT?</h2>
+            <p className="lp-section-description">
+              WRSMAT is the ultimate social media automation platform designed to streamline your digital marketing efforts 
+              and maximize your online presence across all major platforms.
+            </p>
+          </div>
 
           <div className="lp-features-grid">
             {features.map((feature, index) => (
-              <div key={index} id={`feature-${index}`} className="lp-feature-card">
+              <div key={index} className="lp-feature-card" style={{'--accent-color': feature.color}}>
                 <div className="lp-feature-icon-container">
                   <span className="lp-feature-icon">{feature.icon}</span>
                 </div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
+                <h3 className="lp-feature-title">{feature.title}</h3>
+                <p className="lp-feature-description">{feature.description}</p>
                 {feature.action && (
                   <button 
-                    className="lp-btn lp-btn-outline lp-btn-sm"
+                    className="lp-btn lp-btn-outline lp-btn-sm lp-feature-btn"
                     onClick={feature.action.onClick}
-                    style={{ marginTop: '1rem' }}
                   >
                     {feature.action.text}
                   </button>
@@ -224,24 +264,100 @@ const LandingPage = () => {
       <section id="about" className="lp-about-section">
         <div className="lp-container">
           <div className="lp-about-content">
-            <h2>Revolutionizing Social Media Management</h2>
-            <p>
-              Our intelligent tools help businesses and content creators save time while maximizing their social media impact.
-              From small startups to enterprise organizations, our platform scales with your needs while providing the insights
-              and tools necessary to drive meaningful engagement and growth.
-            </p>
+            <div className="lp-about-text">
+              <div className="lp-section-header">
+                <h2 className="lp-section-title">Revolutionizing Social Media Management</h2>
+                <p className="lp-about-description">
+                  Our intelligent platform connects all your favorite social media platforms in one powerful dashboard. 
+                  From small startups to enterprise organizations, WRSMAT scales with your needs while providing 
+                  the insights and automation tools necessary to drive meaningful engagement and explosive growth.
+                </p>
+              </div>
+              
+              <div className="lp-about-features">
+                <div className="lp-about-feature">
+                  <FaCheckCircle className="lp-check-icon" />
+                  <span>Cross-platform scheduling and management</span>
+                </div>
+                <div className="lp-about-feature">
+                  <FaCheckCircle className="lp-check-icon" />
+                  <span>AI-powered content optimization</span>
+                </div>
+                <div className="lp-about-feature">
+                  <FaCheckCircle className="lp-check-icon" />
+                  <span>Real-time analytics and insights</span>
+                </div>
+                <div className="lp-about-feature">
+                  <FaCheckCircle className="lp-check-icon" />
+                  <span>Team collaboration tools</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="lp-about-platforms">
+              <h3 className="lp-platforms-title">Supported Platforms</h3>
+              <div className="lp-platforms-grid">
+                <div className="lp-platform-card">
+                  <img src="/assets/instagram.png" alt="Instagram" className="lp-platform-image" />
+                  <div className="lp-platform-info">
+                    <h4>Instagram</h4>
+                    <p>Stories, Posts, Reels & IGTV</p>
+                  </div>
+                </div>
+                <div className="lp-platform-card">
+                  <img src="/assets/youtube.png" alt="YouTube" className="lp-platform-image" />
+                  <div className="lp-platform-info">
+                    <h4>YouTube</h4>
+                    <p>Videos, Shorts & Community</p>
+                  </div>
+                </div>
+                <div className="lp-platform-card">
+                  <img src="/assets/facebook.png" alt="Facebook" className="lp-platform-image" />
+                  <div className="lp-platform-info">
+                    <h4>Facebook</h4>
+                    <p>Pages, Groups & Stories</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="lp-coming-soon">
+                <p>Coming Soon: TikTok, LinkedIn, Twitter & More!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="lp-cta-section">
+        <div className="lp-container">
+          <div className="lp-cta-content">
+            <h2>Ready to Transform Your Social Media?</h2>
+            <p>Join 50,000+ creators and businesses already growing with WRSMAT</p>
+            <div className="lp-cta-buttons">
+              <button className="lp-btn lp-btn-primary lp-btn-large" onClick={handleSignUpClick}>
+                Start Your Free Trial
+              </button>
+              <button className="lp-btn lp-btn-outline lp-btn-large" onClick={() => setShowPricingModal(true)}>
+                View Pricing Plans
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer id="contact">
+      <footer id="contact" className="lp-footer">
         <div className="lp-container">
           <div className="lp-footer-content">
-            <div className="lp-footer-section">
+            <div className="lp-footer-section lp-footer-brand">
+              <div className="lp-footer-logo">
+                <img src="/assets/brandlogo.svg" alt="Logo" />
+              </div>
+              <p>Empowering creators and businesses to succeed on social media with intelligent automation and insights.</p>
               <div className="lp-social-links">
                 {socialLinks.map((social, index) => (
-                  <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" title={social.name}>
+                  <a key={index} href={social.url} target="_blank" rel="noopener noreferrer" title={social.name} className="lp-social-link">
                     {social.icon}
                   </a>
                 ))}
@@ -249,24 +365,39 @@ const LandingPage = () => {
             </div>
 
             <div className="lp-footer-section">
-              <h3>Contact</h3>
-              <p>📧 smathubai@gmail.com</p>
-              <p>📞 (91- 222033423)</p>
-              <p>📍Mumbai, Maharashtra</p>
+              <h3>Product</h3>
+              <a href="#features">Features</a>
+              <a href="#" onClick={() => setShowPricingModal(true)}>Pricing</a>
+              <a href="#" onClick={() => setShowDemoModal(true)}>Demo</a>
+              <a href="#about">About</a>
             </div>
 
             <div className="lp-footer-section">
-              <h3>Quick Links</h3>
-              <a href="#features">Features</a>
-              <a href="#about">About</a>
-              <a href="#" onClick={() => toggleModal('pricing')}>Pricing</a>
+              <h3>Support</h3>
+              <a href="#">Help Center</a>
+              <a href="#">Contact Support</a>
+            </div>
+
+            <div className="lp-footer-section">
+              <h3>Contact</h3>
+              <div className="lp-contact-info">
+                <p>Email: smathubai@gmail.com</p>
+                <p>Phone: +91-222033423</p>
+                <p>Location: Mumbai, Maharashtra</p>
+              </div>
+            </div>
+
+            <div className="lp-footer-section">
+              <h3>Legal</h3>
               <a href="#" onClick={() => toggleModal('privacy')}>Privacy Policy</a>
-              <a href="#" onClick={() => toggleModal('terms')}>Terms</a>
+              <a href="#" onClick={() => toggleModal('terms')}>Terms of Service</a>
+              <a href="#">Cookie Policy</a>
+              <a href="#">GDPR</a>
             </div>
           </div>
 
           <div className="lp-footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Smathub. All rights reserved.</p>
+            <p>&copy; {new Date().getFullYear()} WRSMAT. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -369,7 +500,7 @@ const LandingPage = () => {
                   width="100%"
                   height="400"
                   src="https://www.youtube.com/watch?v=csgq76kIHT0"
-                  title="Smathub Demo Video"
+                  title="WRSMAT Demo Video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen

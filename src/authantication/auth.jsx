@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, CheckCircle, AlertCircle } from 'lucide-react';
 import './auth.css';
 
 export default function AuthPage({ mode = 'login' }) {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(mode === 'login');
+  const [searchParams] = useSearchParams();
+  const currentMode = searchParams.get('mode') || 'signin'; // default to signin
+  const [isLogin, setIsLogin] = useState(currentMode === 'login');
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -295,7 +297,7 @@ export default function AuthPage({ mode = 'login' }) {
           <div className="success-content">
             <CheckCircle className="success-icon" />
             <h2 className="success-title">
-              {isLogin ? "Welcome back! 👋" : "Welcome aboard! 🎉"}
+              {isLogin ? "Welcome back!" : "Welcome aboard!"}
             </h2>
             <p className="success-message">
               {isLogin 
