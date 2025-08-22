@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram, FaRobot, FaDollarSign } from 'react-icons/fa';
 
 import './landing.css';
 
@@ -9,6 +9,7 @@ const LandingPage = () => {
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [showDemoModal, setShowDemoModal] = useState(false);
+  const [showPricingModal, setShowPricingModal] = useState(false);
 
   const navigate = useNavigate();
 
@@ -66,7 +67,63 @@ const LandingPage = () => {
       icon: '📈',
       title: 'Trend Discovery',
       description: "Identify what's trending across platforms. Leverage AI to suggest viral hashtags, content formats, and top-performing topics in your niche."
+    },
+    {
+      icon: '🤖',
+      title: 'AI Chatbot Assistant',
+      description: 'Get instant help with content creation, strategy suggestions, and platform-specific advice from our intelligent AI assistant available 24/7.',
+      action: {
+        text: 'Try AI Assistant',
+        onClick: () => {
+          // You can add navigation to chatbot or open a chat widget
+          alert('AI Chatbot feature coming soon!');
+        }
+      }
+    },
+    {
+      icon: '💰',
+      title: 'Flexible Pricing',
+      description: 'Choose from our affordable plans designed for individuals, small businesses, and enterprises. Start free and scale as you grow.',
+      action: {
+        text: 'View Pricing',
+        onClick: () => setShowPricingModal(true)
+      }
     }
+  ];
+
+  const pricingPlans = [
+    {
+      name: 'Free',
+      price: '$0',
+      period: '/month',
+      description: 'Perfect for getting started',
+      features: [
+        'Up to 3 social accounts',
+        '10 scheduled posts per month',
+        'Basic analytics',
+        'Email support',
+        'AI assistant (limited)'
+      ],
+      buttonText: 'Get Started Free',
+      popular: false
+    },
+    {
+      name: 'Pro',
+      price: '$19',
+      period: '/month',
+      description: 'For growing businesses',
+      features: [
+        'Up to 10 social accounts',
+        'Unlimited scheduled posts',
+        'Advanced analytics',
+        'Priority support',
+        'Full AI assistant access',
+        'Team collaboration',
+        'Custom branding'
+      ],
+      buttonText: 'Start Pro Trial',
+      popular: true
+    },
   ];
 
   const socialLinks = [
@@ -81,6 +138,8 @@ const LandingPage = () => {
       setShowTermsModal(!showTermsModal);
     } else if (type === 'privacy') {
       setShowPrivacyModal(!showPrivacyModal);
+    } else if (type === 'pricing') {
+      setShowPricingModal(!showPricingModal);
     }
   };
 
@@ -96,6 +155,7 @@ const LandingPage = () => {
             <div className="lp-nav-links">
               <a href="#features">Features</a>
               <a href="#about">About</a>
+              <a href="#" onClick={() => setShowPricingModal(true)}>Pricing</a>
               <a href="#contact">Contact</a>
             </div>
             <div className="lp-auth-buttons">
@@ -145,6 +205,15 @@ const LandingPage = () => {
                 </div>
                 <h3>{feature.title}</h3>
                 <p>{feature.description}</p>
+                {feature.action && (
+                  <button 
+                    className="lp-btn lp-btn-outline lp-btn-sm"
+                    onClick={feature.action.onClick}
+                    style={{ marginTop: '1rem' }}
+                  >
+                    {feature.action.text}
+                  </button>
+                )}
               </div>
             ))}
           </div>
@@ -181,15 +250,16 @@ const LandingPage = () => {
 
             <div className="lp-footer-section">
               <h3>Contact</h3>
-              <p>📧 hello@smathub.com</p>
-              <p>📞 +1-800-SOCIAL-1</p>
-              <p>📍 123 Digital Avenue, Tech City</p>
+              <p>📧 smathubai@gmail.com</p>
+              <p>📞 (91- 222033423)</p>
+              <p>📍Mumbai, Maharashtra</p>
             </div>
 
             <div className="lp-footer-section">
               <h3>Quick Links</h3>
               <a href="#features">Features</a>
               <a href="#about">About</a>
+              <a href="#" onClick={() => toggleModal('pricing')}>Pricing</a>
               <a href="#" onClick={() => toggleModal('privacy')}>Privacy Policy</a>
               <a href="#" onClick={() => toggleModal('terms')}>Terms</a>
             </div>
@@ -201,7 +271,61 @@ const LandingPage = () => {
         </div>
       </footer>
 
-      {/* Modals */}
+      {/* Pricing Modal */}
+      {showPricingModal && (
+        <div className="lp-modal-overlay" onClick={() => toggleModal('pricing')}>
+          <div className="lp-modal-content lp-pricing-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="lp-modal-close" onClick={() => toggleModal('pricing')}>
+              &times;
+            </button>
+            <h2>Choose Your Plan</h2>
+            <p className="lp-pricing-subtitle">Select the perfect plan for your social media needs</p>
+            
+            <div className="lp-pricing-grid">
+              {pricingPlans.map((plan, index) => (
+                <div key={index} className={`lp-pricing-card ${plan.popular ? 'lp-pricing-popular' : ''}`}>
+                  {plan.popular && <div className="lp-popular-badge">Most Popular</div>}
+                  <div className="lp-pricing-header">
+                    <h3>{plan.name}</h3>
+                    <div className="lp-pricing-price">
+                      <span className="lp-price">{plan.price}</span>
+                      <span className="lp-period">{plan.period}</span>
+                    </div>
+                    <p className="lp-pricing-description">{plan.description}</p>
+                  </div>
+                  
+                  <div className="lp-pricing-features">
+                    <ul>
+                      {plan.features.map((feature, featureIndex) => (
+                        <li key={featureIndex}>
+                          <span className="lp-checkmark">✓</span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <button 
+                    className={`lp-btn ${plan.popular ? 'lp-btn-primary' : 'lp-btn-outline'} lp-pricing-button`}
+                    onClick={() => {
+                      toggleModal('pricing');
+                      handleSignUpClick();
+                    }}
+                  >
+                    {plan.buttonText}
+                  </button>
+                </div>
+              ))}
+            </div>
+            
+            <div className="lp-pricing-note">
+              <p>All plans include 14-day free trial • No credit card required • Cancel anytime</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Terms Modal */}
       {showTermsModal && (
         <div className="lp-modal-overlay" onClick={() => toggleModal('terms')}>
           <div className="lp-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -231,6 +355,8 @@ const LandingPage = () => {
           </div>
         </div>
       )}
+
+      {/* Demo Modal */}
       {showDemoModal && (
         <div className="lp-modal-overlay" onClick={() => setShowDemoModal(false)}>
           <div className="lp-modal-content" onClick={(e) => e.stopPropagation()}>
@@ -254,6 +380,7 @@ const LandingPage = () => {
         </div>
       )}
 
+      {/* Privacy Modal */}
       {showPrivacyModal && (
         <div className="lp-modal-overlay" onClick={() => toggleModal('privacy')}>
           <div className="lp-modal-content" onClick={(e) => e.stopPropagation()}>
