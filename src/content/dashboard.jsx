@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './dashboard.css';
+import { UserButton, useUser } from '@clerk/clerk-react';
+import './Dashboard.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Instagram, 
@@ -31,6 +32,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
+  const { user } = useUser();
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
@@ -51,7 +53,7 @@ const Dashboard = () => {
       connected: true,
       lastPost: '2 hours ago',
       avgReach: '2.1K',
-      description: 'Photo & Story sharing'
+     
     },
     {
       platform: 'Facebook',
@@ -173,7 +175,7 @@ const Dashboard = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('currentUser');
     localStorage.removeItem('loginMethod');
-    navigate('/auth');
+    navigate('/landing.');
   };
 
   const connectPlatform = (platform) => {
@@ -182,238 +184,63 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="dashboard-container">
-      {/* Header */}
+    <div className="dashboard">
       <header className="dashboard-header">
-        <div className="header-content">
-          <div className="header-left">
-            <img
-              src="/assets/brandlogo.svg"
-              alt="SMATHUB"
-              className="brand-logo"
-            />
-            <div className="header-info">
-              <h1>Social Media Dashboard</h1>
-              <p>Manage Instagram, Facebook & YouTube</p>
-            </div>
-          </div>
-          
-          <div className="header-right">
-            <div className="header-actions">
-              <button className="action-btn">
-                <Bell size={20} />
-                <span className="notification-badge">3</span>
-              </button>
-              <button className="action-btn">
-                <Search size={20} />
-              </button>
-            </div>
-            
-            <div className="user-profile">
-              <img
-                src={currentUser?.avatar || "https://i.pravatar.cc/40"}
-                alt="User Avatar"
-                className="avatar"
+        <div className="dashboard-container">
+          <div className="dashboard-nav">
+            <h1>WRSMAT Dashboard</h1>
+            <div className="dashboard-user">
+              <span>Welcome, {user?.firstName || user?.emailAddresses[0]?.emailAddress}!</span>
+              
+              {/* Option 1: Clerk's UserButton with redirect to landing page */}
+              <UserButton 
+                afterSignOutUrl="/"
+                appearance={{
+                  elements: {
+                    userButtonAvatarBox: 'w-10 h-10',
+                    userButtonPopoverCard: 'shadow-lg border border-gray-200',
+                    userButtonPopoverActions: 'space-y-2',
+                    userButtonPopoverActionButton: 'text-sm hover:bg-gray-50'
+                  }
+                }}
               />
-              <div className="user-info">
-                <span className="username">{currentUser?.name || currentUser?.companyName || 'Demo User'}</span>
-                <span className="user-role">Content Creator</span>
-              </div>
-              <div className="profile-dropdown">
-                <button className="dropdown-btn">
-                  <ChevronDown size={16} />
-                </button>
-                <div className="dropdown-menu">
-                  <Link to="/settings" className="dropdown-item">
-                    <Settings size={16} />
-                    Settings
-                  </Link>
-                  <Link to="/manage-subscription" className="dropdown-item">
-                    <CreditCard size={16} />
-                    Billing
-                  </Link>
-                  <button onClick={handleLogout} className="dropdown-item logout">
-                    <LogOut size={16} />
-                    Logout
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </header>
-
-      {/* Main Content */}
+      
       <main className="dashboard-main">
-        <div className="dashboard-grid">
-          
-          {/* Platform Overview */}
-          <section className="overview-section">
-            <div className="section-header">
-            </div>
+        <div className="dashboard-container">
+          <div className="dashboard-content">
+            <h2>Your Social Media Hub</h2>
+            <p>Start managing your social media accounts from here.</p>
             
-            <div className="platform-cards">
-              {socialPlatforms.map((platform) => (
-                <div key={platform.platform} className={`platform-card ${platform.color}`}>
-                  <div className="card-header">
-                    <div className="platform-info">
-                      <div className="platform-icon-wrapper">
-                        <platform.icon size={24} />
-                      </div>
-                      <div>
-                        <h3>{platform.platform}</h3>
-                        <span className="platform-description">{platform.description}</span>
-                      </div>
-                    </div>
-                    <div className="connection-status connected">
-                      <div className="status-dot"></div>
-                      Connected
-                    </div>
-                  </div>
-                  
-                  <div className="card-stats">
-                    <div className="stat-group">
-                      <div className="stat-item">
-                        <div className="stat-value">{platform.followers}</div>
-                        <div className="stat-label">Followers</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-value">{platform.posts}</div>
-                        <div className="stat-label">Posts</div>
-                      </div>
-                    </div>
-                    <div className="stat-group">
-                      <div className="stat-item">
-                        <div className="stat-value">{platform.engagement}</div>
-                        <div className="stat-label">Engagement</div>
-                      </div>
-                      <div className="stat-item">
-                        <div className="stat-value">{platform.avgReach}</div>
-                        <div className="stat-label">Avg. Reach</div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="card-footer">
-                    <div className="last-activity">
-                      <Clock size={14} />
-                      <span>Last post: {platform.lastPost}</span>
-                    </div>
-                    <div className="growth-indicator">
-                      <TrendingUp size={14} />
-                      <span>{platform.growth}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Quick Actions */}
-          <section className="quick-actions-section">
-            <div className="section-header">
-              <h2>Quick Actions</h2>
-              <p className="section-subtitle">Create and manage content across platforms</p>
-            </div>
-            
-            <div className="action-grid">
-              {quickActions.map((action, index) => (
-                <Link key={index} to={action.link} className={`action-card ${action.color}`}>
-                  <div className="action-icon">
-                    <action.icon size={20} />
-                  </div>
-                  <div className="action-content">
-                    <h3>{action.title}</h3>
-                    <p>{action.description}</p>
-                  </div>
-                  <div className="action-arrow">
-                    <ChevronDown size={16} style={{ transform: 'rotate(-90deg)' }} />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-
-          {/* Overall Performance */}
-          <section className="analytics-section">
-            <div className="section-header">
-              <h2>Overall Performance</h2>
-              <button className="btn-outline">
-                <BarChart3 size={16} />
-                Detailed Analytics
-              </button>
-            </div>
-            
-            <div className="analytics-cards">
-              <div className="analytics-card">
-                <div className="analytics-icon total-followers">
-                  <Users size={20} />
-                </div>
-                <div className="analytics-content">
-                  <div className="analytics-value">{(platformMetrics.totalFollowers / 1000).toFixed(1)}K</div>
-                  <div className="analytics-label">Total Followers</div>
-                  <div className="analytics-change positive">Across all platforms</div>
-                </div>
+            <div className="dashboard-cards">
+              <div className="dashboard-card">
+                <h3>Connected Accounts</h3>
+                <p>Manage your social media connections</p>
+                <button className="dashboard-card-btn">Connect Account</button>
               </div>
               
-              <div className="analytics-card">
-                <div className="analytics-icon total-posts">
-                  <Edit3 size={20} />
-                </div>
-                <div className="analytics-content">
-                  <div className="analytics-value">{platformMetrics.totalPosts}</div>
-                  <div className="analytics-label">Total Posts</div>
-                  <div className="analytics-change positive">Published content</div>
-                </div>
+              <div className="dashboard-card">
+                <h3>Scheduled Posts</h3>
+                <p>View and manage your scheduled content</p>
+                <button className="dashboard-card-btn">Schedule Post</button>
               </div>
               
-              <div className="analytics-card">
-                <div className="analytics-icon avg-engagement">
-                  <Heart size={20} />
-                </div>
-                <div className="analytics-content">
-                  <div className="analytics-value">{platformMetrics.avgEngagement}%</div>
-                  <div className="analytics-label">Avg. Engagement</div>
-                  <div className="analytics-change positive">Cross-platform</div>
-                </div>
+              <div className="dashboard-card">
+                <h3>Analytics</h3>
+                <p>Track your social media performance</p>
+                <button className="dashboard-card-btn">View Analytics</button>
+              </div>
+              
+              <div className="dashboard-card">
+                <h3>AI Assistant</h3>
+                <p>Get help with content creation</p>
+                <button className="dashboard-card-btn">Try AI Assistant</button>
               </div>
             </div>
-          </section>
-
-          {/* Recent Activity */}
-          <section className="activity-section">
-            <div className="section-header">
-              <h2>Recent Activity</h2>
-              <button className="btn-text">View All Activities</button>
-            </div>
-            
-            <div className="activity-list">
-              {recentActivity.map((activity, index) => (
-                <div key={index} className="activity-item">
-                  <div className={`activity-status ${activity.status}`}></div>
-                  <div className="activity-content">
-                    <div className="activity-main">
-                      <div className="activity-action">{activity.action}</div>
-                      <div className="activity-engagement">{activity.engagement}</div>
-                    </div>
-                    <div className="activity-details">
-                      <span className={`activity-platform ${activity.platform.toLowerCase()}`}>
-                        {activity.platform === 'Instagram' && <Instagram size={12} />}
-                        {activity.platform === 'Facebook' && <Facebook size={12} />}
-                        {activity.platform === 'YouTube' && <Youtube size={12} />}
-                        {activity.platform}
-                      </span>
-                      <span className="activity-time">{activity.time}</span>
-                    </div>
-                  </div>
-                  <div className="activity-actions">
-                    <button className="activity-btn">View</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-
+          </div>
         </div>
       </main>
     </div>

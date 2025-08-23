@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '@clerk/clerk-react';
 import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram, FaRobot, FaDollarSign, FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
-
 import './landing.css';
 
 const LandingPage = () => {
@@ -12,9 +12,23 @@ const LandingPage = () => {
   const [showPricingModal, setShowPricingModal] = useState(false);
 
   const navigate = useNavigate();
+  const { isSignedIn, isLoaded } = useUser();
 
-  const handleSignUpClick = () => navigate('/auth?mode=signup');
-  const handleLoginClick = () => navigate('/auth?mode=signin');
+  // Redirect to dashboard if already signed in
+  useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      navigate('/dashboard');
+    }
+  }, [isSignedIn, isLoaded, navigate]);
+
+  // Production-ready navigation functions
+  const handleSignUpClick = () => {
+    navigate('/sign-up');
+  };
+
+  const handleLoginClick = () => {
+    navigate('/sign-in');
+  };
 
   // Smooth scrolling for anchor links
   useEffect(() => {
@@ -47,6 +61,7 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // ...existing arrays (features, pricingPlans, socialLinks)...
   const features = [
     {
       icon: <FaPlay />,
@@ -150,27 +165,45 @@ const LandingPage = () => {
     }
   };
 
+  // Show loading state while Clerk is initializing
+  if (!isLoaded) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+      }}>
+        <div>Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="lp-landing-page">
       {/* Header */}
       <header className={`lp-header ${isScrolled ? 'lp-scrolled' : ''}`}>
-        <div className="lp-container">
-          <nav className="lp-navbar">
-            <div className="lp-logo">
-              <img src="/assets/brandlogo.svg" alt="Logo" />
-            </div>
-            <div className="lp-nav-links">
-              <a href="#features" className="lp-nav-link">Features</a>
-              <a href="#about" className="lp-nav-link">About</a>
-              <a href="#" onClick={() => setShowPricingModal(true)} className="lp-nav-link">Pricing</a>
-              <a href="#contact" className="lp-nav-link">Contact</a>
-            </div>
-            <div className="lp-auth-buttons">
-              <button className="lp-btn lp-btn-outline" onClick={handleLoginClick}>Sign In</button>
-              <button className="lp-btn lp-btn-primary" onClick={handleSignUpClick}>Get Started</button>
-            </div>
-          </nav>
-        </div>
+        <nav className="lp-navbar lp-container">
+          <div className="lp-logo">
+            <img src="/assets/brandlogo.svg" alt="WRSMAT" />
+          </div>
+          
+          <div className="lp-nav-links">
+            <a href="#features" className="lp-nav-link">Features</a>
+            <a href="#about" className="lp-nav-link">About</a>
+            <a href="#" className="lp-nav-link" onClick={(e) => { e.preventDefault(); setShowPricingModal(true); }}>Pricing</a>
+          </div>
+          
+          <div className="lp-auth-buttons">
+            <button className="lp-btn lp-btn-sm" onClick={handleLoginClick}>
+              Sign In
+            </button>
+            <button className="lp-btn lp-btn-primary lp-btn-sm" onClick={handleSignUpClick}>
+              Get Started
+            </button>
+          </div>
+        </nav>
       </header>
 
       {/* Hero Section */}
@@ -184,44 +217,66 @@ const LandingPage = () => {
             <div className="lp-floating-icon lp-float-4"><FaInstagram /></div>
           </div>
         </div>
-        <div className="lp-container">
-          <div className="lp-hero-content">
-            <div className="lp-hero-badge">
-              <span>New: AI-Powered Content Generation</span>
+        <div className="lp-hero-content lp-container">
+          <div className="lp-hero-badge">
+            <span>🚀 New: AI-Powered Content Generation</span>
+          </div>
+          <h1 className="lp-hero-title">
+            Automate Your 
+            <span className="lp-gradient-text"> Social Media Success</span>
+          </h1>
+          <p className="lp-hero-subtitle">
+            Powerful AI-driven tools to grow your audience, increase engagement, 
+            and save hours every week. Join 50,000+ creators and businesses already winning with WRSMAT.
+          </p>
+          
+          <div className="lp-cta-buttons">
+            <button className="lp-btn lp-btn-primary lp-btn-large" onClick={handleSignUpClick}>
+              <span>Start Free Trial</span>
+              <FaPlay className="lp-btn-icon" />
+            </button>
+            <button className="lp-btn lp-btn-outline lp-btn-large" onClick={() => setShowDemoModal(true)}>
+              <FaPlay className="lp-btn-icon" />
+              <span>Watch Demo</span>
+            </button>
+          </div>
+          
+          <div className="lp-trust-indicators">
+            <div className="lp-trust-item">
+              <FaCheckCircle className="lp-trust-icon" />
+              <span>No Credit Card Required</span>
             </div>
-            <h1 className="lp-hero-title">
-              Automate Your 
-              <span className="lp-gradient-text"> Social Media Success</span>
-            </h1>
-            <p className="lp-hero-subtitle">
-              Powerful AI-driven tools to grow your audience, increase engagement, 
-              and save hours every week. Join 50,000+ creators and businesses already winning with wrsmat.
-            </p>
-            
-            <div className="lp-cta-buttons">
-              <button className="lp-btn lp-btn-primary lp-btn-large" onClick={handleSignUpClick}>
-                <span>Start Free Trial</span>
-                <FaPlay className="lp-btn-icon" />
-              </button>
-              <button className="lp-btn lp-btn-outline lp-btn-large" onClick={() => setShowDemoModal(true)}>
-                <FaPlay className="lp-btn-icon" />
-                <span>Watch Demo</span>
-              </button>
+            <div className="lp-trust-item">
+              <FaCheckCircle className="lp-trust-icon" />
+              <span>14-Day Free Trial</span>
             </div>
+            <div className="lp-trust-item">
+              <FaCheckCircle className="lp-trust-icon" />
+              <span>Cancel Anytime</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <div className="lp-trust-indicators">
-              <div className="lp-trust-item">
-                <FaCheckCircle className="lp-trust-icon" />
-                <span>No Credit Card Required</span>
-              </div>
-              <div className="lp-trust-item">
-                <FaCheckCircle className="lp-trust-icon" />
-                <span>14-Day Free Trial</span>
-              </div>
-              <div className="lp-trust-item">
-                <FaCheckCircle className="lp-trust-icon" />
-                <span>Cancel Anytime</span>
-              </div>
+      {/* Stats Section */}
+      <section className="lp-stats-section">
+        <div className="lp-container">
+          <div className="lp-stats-grid">
+            <div className="lp-stat-item">
+              <div className="lp-stat-number">50K+</div>
+              <div className="lp-stat-label">Active Users</div>
+            </div>
+            <div className="lp-stat-item">
+              <div className="lp-stat-number">2M+</div>
+              <div className="lp-stat-label">Posts Scheduled</div>
+            </div>
+            <div className="lp-stat-item">
+              <div className="lp-stat-number">10+</div>
+              <div className="lp-stat-label">Platforms</div>
+            </div>
+            <div className="lp-stat-item">
+              <div className="lp-stat-number">99.9%</div>
+              <div className="lp-stat-label">Uptime</div>
             </div>
           </div>
         </div>
@@ -301,28 +356,32 @@ const LandingPage = () => {
                   <img src="/assets/instagram.png" alt="Instagram" className="lp-platform-image" />
                   <div className="lp-platform-info">
                     <h4>Instagram</h4>
-                    <p>Stories, Posts, Reels & IGTV</p>
-                  </div>
-                </div>
-                <div className="lp-platform-card">
-                  <img src="/assets/youtube.png" alt="YouTube" className="lp-platform-image" />
-                  <div className="lp-platform-info">
-                    <h4>YouTube</h4>
-                    <p>Videos, Shorts & Community</p>
+                    <p>Connect and automate your Instagram marketing.</p>
                   </div>
                 </div>
                 <div className="lp-platform-card">
                   <img src="/assets/facebook.png" alt="Facebook" className="lp-platform-image" />
                   <div className="lp-platform-info">
                     <h4>Facebook</h4>
-                    <p>Pages, Groups & Stories</p>
+                    <p>Manage your Facebook pages and ads with ease.</p>
+                  </div>
+                </div>
+                <div className="lp-platform-card">
+                  <img src="/assets/twitter.png" alt="Twitter" className="lp-platform-image" />
+                  <div className="lp-platform-info">
+                    <h4>Twitter</h4>
+                    <p>Engage with your audience on Twitter effectively.</p>
+                  </div>
+                </div>
+                <div className="lp-platform-card">
+                  <img src="/assets/linkedin.png" alt="LinkedIn" className="lp-platform-image" />
+                  <div className="lp-platform-info">
+                    <h4>LinkedIn</h4>
+                    <p>Grow your professional network and influence.</p>
                   </div>
                 </div>
               </div>
-              
-              <div className="lp-coming-soon">
-                <p>Coming Soon: TikTok, LinkedIn, Twitter & More!</p>
-              </div>
+              <p className="lp-coming-soon">More platforms coming soon...</p>
             </div>
           </div>
         </div>
@@ -352,7 +411,7 @@ const LandingPage = () => {
           <div className="lp-footer-content">
             <div className="lp-footer-section lp-footer-brand">
               <div className="lp-footer-logo">
-                <img src="/assets/brandlogo.svg" alt="Logo" />
+                <img src="/assets/brandlogo.svg" alt="WRSMAT" />
               </div>
               <p>Empowering creators and businesses to succeed on social media with intelligent automation and insights.</p>
               <div className="lp-social-links">
@@ -381,9 +440,9 @@ const LandingPage = () => {
             <div className="lp-footer-section">
               <h3>Contact</h3>
               <div className="lp-contact-info">
-                <p>Email: smathubai@gmail.com</p>
-                <p>Phone: +91-222033423</p>
-                <p>Location: Mumbai, Maharashtra</p>
+                <p>Email: support@wrsmat.com</p>
+                <p>Phone: +1 (555) 123-4567</p>
+                <p>Location: San Francisco, CA</p>
               </div>
             </div>
 
@@ -402,6 +461,7 @@ const LandingPage = () => {
         </div>
       </footer>
 
+      {/* All existing modals... */}
       {/* Pricing Modal */}
       {showPricingModal && (
         <div className="lp-modal-overlay" onClick={() => toggleModal('pricing')}>
@@ -456,37 +516,6 @@ const LandingPage = () => {
         </div>
       )}
 
-      {/* Terms Modal */}
-      {showTermsModal && (
-        <div className="lp-modal-overlay" onClick={() => toggleModal('terms')}>
-          <div className="lp-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="lp-modal-close" onClick={() => toggleModal('terms')}>
-              &times;
-            </button>
-            <h2>Terms & Conditions</h2>
-            <div className="lp-modal-body">
-              <h3>1. Acceptance of Terms</h3>
-              <p>By accessing and using SocialFlow, you accept and agree to be bound by the terms and provision of this agreement.</p>
-
-              <h3>2. Service Description</h3>
-              <p>SmatHub provides social media automation tools including post scheduling, analytics, and management features.</p>
-
-              <h3>3. User Responsibilities</h3>
-              <p>Users are responsible for maintaining the confidentiality of their account information and for all activities under their account.</p>
-
-              <h3>4. Privacy and Data</h3>
-              <p>We collect and use information in accordance with our Privacy Policy. User data is protected and not shared with third parties without consent.</p>
-
-              <h3>5. Limitation of Liability</h3>
-              <p>SmatHub shall not be liable for any indirect, incidental, special, consequential, or punitive damages.</p>
-
-              <h3>6. Contact Information</h3>
-              <p>For questions about these Terms, please contact us at legal@smathub.com</p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Demo Modal */}
       {showDemoModal && (
         <div className="lp-modal-overlay" onClick={() => setShowDemoModal(false)}>
@@ -499,13 +528,44 @@ const LandingPage = () => {
                 <iframe
                   width="100%"
                   height="400"
-                  src="https://www.youtube.com/watch?v=csgq76kIHT0"
+                  src="https://www.youtube.com/embed/csgq76kIHT0"
                   title="WRSMAT Demo Video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Terms Modal */}
+      {showTermsModal && (
+        <div className="lp-modal-overlay" onClick={() => toggleModal('terms')}>
+          <div className="lp-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="lp-modal-close" onClick={() => toggleModal('terms')}>
+              &times;
+            </button>
+            <h2>Terms & Conditions</h2>
+            <div className="lp-modal-body">
+              <h3>1. Acceptance of Terms</h3>
+              <p>By accessing and using WRSMAT, you accept and agree to be bound by the terms and provision of this agreement.</p>
+
+              <h3>2. Service Description</h3>
+              <p>WRSMAT provides social media automation tools including post scheduling, analytics, and management features.</p>
+
+              <h3>3. User Responsibilities</h3>
+              <p>Users are responsible for maintaining the confidentiality of their account information and for all activities under their account.</p>
+
+              <h3>4. Privacy and Data</h3>
+              <p>We collect and use information in accordance with our Privacy Policy. User data is protected and not shared with third parties without consent.</p>
+
+              <h3>5. Limitation of Liability</h3>
+              <p>WRSMAT shall not be liable for any indirect, incidental, special, consequential, or punitive damages.</p>
+
+              <h3>6. Contact Information</h3>
+              <p>For questions about these Terms, please contact us at legal@wrsmat.com</p>
             </div>
           </div>
         </div>
@@ -533,10 +593,10 @@ const LandingPage = () => {
               <p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p>
 
               <h3>Your Rights</h3>
-              <p>You have the right to access, update, or delete your personal information. Contact us at privacy@smathub.com for assistance.</p>
+              <p>You have the right to access, update, or delete your personal information. Contact us at privacy@wrsmat.com for assistance.</p>
 
               <h3>Contact Us</h3>
-              <p>If you have questions about this Privacy Policy, please contact us at privacy@smathub.com</p>
+              <p>If you have questions about this Privacy Policy, please contact us at privacy@wrsmat.com</p>
             </div>
           </div>
         </div>
