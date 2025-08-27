@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { UserButton, useUser } from '@clerk/clerk-react';
-import './Dashboard.css';
+import './dashboard.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Instagram, 

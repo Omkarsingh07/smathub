@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '@clerk/clerk-react';
-import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram, FaRobot, FaDollarSign, FaPlay, FaCheckCircle, FaStar } from 'react-icons/fa';
+import { FaTwitter, FaLinkedin, FaFacebook, FaInstagram, FaRobot, FaDollarSign, FaPlay, FaCheckCircle, FaStar, FaClock, FaUsers, FaThumbsUp, FaCalendarAlt, FaChartLine } from 'react-icons/fa';
 import './landing.css';
 
 const LandingPage = () => {
@@ -15,6 +15,7 @@ const LandingPage = () => {
   const { isSignedIn, isLoaded } = useUser();
 
   // Redirect to dashboard if already signed in
+
   useEffect(() => {
     if (isLoaded && isSignedIn) {
       navigate('/dashboard');
@@ -22,6 +23,7 @@ const LandingPage = () => {
   }, [isSignedIn, isLoaded, navigate]);
 
   // Production-ready navigation functions
+
   const handleSignUpClick = () => {
     navigate('/sign-up');
   };
@@ -31,6 +33,7 @@ const LandingPage = () => {
   };
 
   // Smooth scrolling for anchor links
+
   useEffect(() => {
     const handleAnchorClick = (e) => {
       const target = e.target.closest('a[href^="#"]');
@@ -52,6 +55,7 @@ const LandingPage = () => {
   }, []);
 
   // Header scroll effect
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100);
@@ -61,7 +65,6 @@ const LandingPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // ...existing arrays (features, pricingPlans, socialLinks)...
   const features = [
     {
       icon: <FaPlay />,
@@ -166,6 +169,7 @@ const LandingPage = () => {
   };
 
   // Show loading state while Clerk is initializing
+  
   if (!isLoaded) {
     return (
       <div style={{ 
@@ -193,6 +197,7 @@ const LandingPage = () => {
             <a href="#features" className="lp-nav-link">Features</a>
             <a href="#about" className="lp-nav-link">About</a>
             <a href="#" className="lp-nav-link" onClick={(e) => { e.preventDefault(); setShowPricingModal(true); }}>Pricing</a>
+            <a href="#contact" className="lp-nav-link">Contact</a>
           </div>
           
           <div className="lp-auth-buttons">
@@ -219,7 +224,7 @@ const LandingPage = () => {
         </div>
         <div className="lp-hero-content lp-container">
           <div className="lp-hero-badge">
-            <span>🚀 New: AI-Powered Content Generation</span>
+            <span>New: AI-Powered Content Generation</span>
           </div>
           <h1 className="lp-hero-title">
             Automate Your 
@@ -253,30 +258,6 @@ const LandingPage = () => {
             <div className="lp-trust-item">
               <FaCheckCircle className="lp-trust-icon" />
               <span>Cancel Anytime</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="lp-stats-section">
-        <div className="lp-container">
-          <div className="lp-stats-grid">
-            <div className="lp-stat-item">
-              <div className="lp-stat-number">50K+</div>
-              <div className="lp-stat-label">Active Users</div>
-            </div>
-            <div className="lp-stat-item">
-              <div className="lp-stat-number">2M+</div>
-              <div className="lp-stat-label">Posts Scheduled</div>
-            </div>
-            <div className="lp-stat-item">
-              <div className="lp-stat-number">10+</div>
-              <div className="lp-stat-label">Platforms</div>
-            </div>
-            <div className="lp-stat-item">
-              <div className="lp-stat-number">99.9%</div>
-              <div className="lp-stat-label">Uptime</div>
             </div>
           </div>
         </div>
@@ -367,19 +348,13 @@ const LandingPage = () => {
                   </div>
                 </div>
                 <div className="lp-platform-card">
-                  <img src="/assets/twitter.png" alt="Twitter" className="lp-platform-image" />
+                  <img src="/assets/youtube.png" alt="YouTube" className="lp-platform-image" />
                   <div className="lp-platform-info">
-                    <h4>Twitter</h4>
-                    <p>Engage with your audience on Twitter effectively.</p>
+                    <h4>YouTube</h4>
+                    <p>Upload and manage your video content effortlessly.</p>
                   </div>
                 </div>
-                <div className="lp-platform-card">
-                  <img src="/assets/linkedin.png" alt="LinkedIn" className="lp-platform-image" />
-                  <div className="lp-platform-info">
-                    <h4>LinkedIn</h4>
-                    <p>Grow your professional network and influence.</p>
-                  </div>
-                </div>
+                
               </div>
               <p className="lp-coming-soon">More platforms coming soon...</p>
             </div>
@@ -392,7 +367,10 @@ const LandingPage = () => {
         <div className="lp-container">
           <div className="lp-cta-content">
             <h2>Ready to Transform Your Social Media?</h2>
-            <p>Join 50,000+ creators and businesses already growing with WRSMAT</p>
+            <p>
+              Join thousands of creators and businesses already growing their audience 
+              with WRSMAT's intelligent automation tools.
+            </p>
             <div className="lp-cta-buttons">
               <button className="lp-btn lp-btn-primary lp-btn-large" onClick={handleSignUpClick}>
                 Start Your Free Trial
@@ -400,6 +378,21 @@ const LandingPage = () => {
               <button className="lp-btn lp-btn-outline lp-btn-large" onClick={() => setShowPricingModal(true)}>
                 View Pricing Plans
               </button>
+            </div>
+            
+            <div className="lp-cta-trust">
+              <div className="lp-cta-trust-item">
+                <FaCheckCircle className="lp-cta-trust-icon" />
+                <span>14-day free trial</span>
+              </div>
+              <div className="lp-cta-trust-item">
+                <FaCheckCircle className="lp-cta-trust-icon" />
+                <span>No credit card required</span>
+              </div>
+              <div className="lp-cta-trust-item">
+                <FaCheckCircle className="lp-cta-trust-icon" />
+                <span>Cancel anytime</span>
+              </div>
             </div>
           </div>
         </div>
